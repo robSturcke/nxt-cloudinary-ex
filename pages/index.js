@@ -1,8 +1,40 @@
-import Head from 'next/head'
-import Image from 'next/image'
-import styles from '../styles/Home.module.css'
+import Head from 'next/head';
+import Image from 'next/image';
+import { buildUrl } from 'cloudinary-build-url';
+import styles from '../styles/Home.module.css';
+import { useEffect, useState } from 'react';
 
 export default function Home() {
+  const url = buildUrl('cld-sample-2', {
+    cloud: {
+      cloudName: 'dczqq7vyb',
+    },
+    transformations: {
+      effect: {
+        name: 'pixelate',
+        value: 40,
+      },
+    },
+  });
+
+  const urlBlurred = buildUrl('cld-sample-2', {
+    cloud: {
+      cloudName: 'dczqq7vyb',
+    },
+    transformations: {
+      effect: 'blur:1000',
+      quality: 1,
+    },
+  });
+
+  const [image, setImage] = useState();
+
+  useEffect(() => {
+    setTimeout(() => {
+      setImage(url);
+    }, 2000);
+  }, [url]);
+
   return (
     <div className={styles.container}>
       <Head>
@@ -12,58 +44,54 @@ export default function Home() {
       </Head>
 
       <main className={styles.main}>
-        <h1 className={styles.title}>
-          Welcome to <a href="https://nextjs.org">Next.js!</a>
-        </h1>
+        <div className={styles.card}>
+          <Image src="/galaxy.jpeg" alt="Galaxy" width={1000} height={750} />
+          <h3>Local Image</h3>
+        </div>
 
-        <p className={styles.description}>
-          Get started by editing{' '}
-          <code className={styles.code}>pages/index.js</code>
-        </p>
+        <div className={styles.card}>
+          <Image
+            src="https://res.cloudinary.com/dczqq7vyb/image/upload/v1660755506/cld-sample-2.jpg"
+            alt="Galaxy"
+            width={1000}
+            height={750}
+          />
+          <h3>Cloudinary Image</h3>
+        </div>
 
-        <div className={styles.grid}>
-          <a href="https://nextjs.org/docs" className={styles.card}>
-            <h2>Documentation &rarr;</h2>
-            <p>Find in-depth information about Next.js features and API.</p>
-          </a>
+        {/* <div className={styles.card}>
+          <Image src={url} alt="Mountain" width={1000} height={750} />
+          <h3>Cloudinary - Pixelated Placeholder</h3>
+        </div> */}
 
-          <a href="https://nextjs.org/learn" className={styles.card}>
-            <h2>Learn &rarr;</h2>
-            <p>Learn about Next.js in an interactive course with quizzes!</p>
-          </a>
-
-          <a
-            href="https://github.com/vercel/next.js/tree/canary/examples"
-            className={styles.card}
+        <div className={styles.card}>
+          <div
+            style={{
+              position: 'relative',
+              height: 0,
+              paddingTop: `${(750 / 1000) * 100}%`,
+              backgroundImage: `url(${urlBlurred})`,
+              backgroundPosition: 'center center',
+              backgroundSize: `100%`,
+            }}
           >
-            <h2>Examples &rarr;</h2>
-            <p>Discover and deploy boilerplate example Next.js projects.</p>
-          </a>
-
-          <a
-            href="https://vercel.com/new?utm_source=create-next-app&utm_medium=default-template&utm_campaign=create-next-app"
-            className={styles.card}
-          >
-            <h2>Deploy &rarr;</h2>
-            <p>
-              Instantly deploy your Next.js site to a public URL with Vercel.
-            </p>
-          </a>
+            <div
+              style={{
+                position: 'absolute',
+                top: 0,
+                left: 0,
+              }}
+            >
+              {image && (
+                <Image src={image} alt="Galaxy" width={1000} height={750} />
+              )}
+            </div>
+          </div>
+          <h3>Cloudinary - Blurred Placeholder</h3>
         </div>
       </main>
 
-      <footer className={styles.footer}>
-        <a
-          href="https://vercel.com?utm_source=create-next-app&utm_medium=default-template&utm_campaign=create-next-app"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Powered by{' '}
-          <span className={styles.logo}>
-            <Image src="/vercel.svg" alt="Vercel Logo" width={72} height={16} />
-          </span>
-        </a>
-      </footer>
+      <footer className={styles.footer}>RSEBEX</footer>
     </div>
-  )
+  );
 }
