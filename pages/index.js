@@ -5,17 +5,18 @@ import styles from '../styles/Home.module.css';
 import { useEffect, useState } from 'react';
 
 export default function Home() {
-  const url = buildUrl('cld-sample-2', {
-    cloud: {
-      cloudName: 'dczqq7vyb',
-    },
-    transformations: {
-      effect: {
-        name: 'pixelate',
-        value: 40,
-      },
-    },
-  });
+  // const url = buildUrl('cld-sample-2', {
+  //   cloud: {
+  //     cloudName: 'dczqq7vyb',
+  //   },
+  //   transformations: {
+  //     effect: {
+  //       name: 'pixelate',
+  //       value: 40,
+  //     },
+  //   },
+  // });
+  const url = 'https://res.cloudinary.com/dczqq7vyb/image/upload/v1660755506/cld-sample-2.jpg';
 
   const urlBlurred = buildUrl('cld-sample-2', {
     cloud: {
