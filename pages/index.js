@@ -16,7 +16,8 @@ export default function Home() {
   //     },
   //   },
   // });
-  const url = 'https://res.cloudinary.com/dczqq7vyb/image/upload/v1660755506/cld-sample-2.jpg';
+  const url =
+    'https://res.cloudinary.com/dczqq7vyb/image/upload/v1660755506/cld-sample-2.jpg';
 
   const urlBlurred = buildUrl('cld-sample-2', {
     cloud: {
@@ -45,7 +46,7 @@ export default function Home() {
       </Head>
 
       <main className={styles.main}>
-        <div className={styles.card}>
+        {/* <div className={styles.card}>
           <Image src="/galaxy.jpeg" alt="Galaxy" width={1000} height={750} />
           <h3>Local Image</h3>
         </div>
@@ -58,7 +59,7 @@ export default function Home() {
             height={750}
           />
           <h3>Cloudinary Image</h3>
-        </div>
+        </div> */}
 
         {/* <div className={styles.card}>
           <Image src={url} alt="Mountain" width={1000} height={750} />
